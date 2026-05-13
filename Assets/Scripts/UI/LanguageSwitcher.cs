@@ -51,12 +51,32 @@ public class LanguageSwitcher : MonoBehaviour
 
         dropdown.value = currentIndex;
         dropdown.RefreshShownValue();
-        // Подписка на событие изменения языка
-        dropdown.onValueChanged.AddListener(ChangeLanguage);
+        
     }
 
     private void ChangeLanguage(int index)
     {
-        LocalizationSettings.SelectedLocale = locales[index];
+        Locale selectedLocale = locales[index];
+
+        LocalizationSettings.SelectedLocale = selectedLocale;
+
+        SaveData data = new SaveData
+        {
+            languageCode = selectedLocale.Identifier.Code
+        };
+
+        SaveManager.Save(data);
+    }
+
+    private void OnEnable()
+    {
+        // Подписка на событие изменения языка
+        dropdown.onValueChanged.AddListener(ChangeLanguage);
+    }
+
+    private void OnDisable()
+    {
+        // Отписка события изменения языка
+        dropdown.onValueChanged.RemoveListener(ChangeLanguage);
     }
 }
