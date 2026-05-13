@@ -15,16 +15,8 @@ MonoBehaviour:
   m_TableCollectionName: StringTable
   m_TableCollectionNameGuidString: cb577d7df3738c540aa6eada22565945
   m_Entries:
-  - m_Id: 2367687745536
-    m_Key: EXIT_GAME_BTN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2446297391104
-    m_Key: SETTINGS_GAME_BTN
-    m_Metadata:
-      m_Items: []
   - m_Id: 2269247430656
-    m_Key: START_GAME_BTN
+    m_Key: SwithLanguage
     m_Metadata:
       m_Items: []
   - m_Id: 3497008291840
