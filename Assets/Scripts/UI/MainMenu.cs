@@ -7,8 +7,9 @@ public class MainMenu : MonoBehaviour
     [Header("Buttons")]
     [SerializeField] private Button playButton;
     [SerializeField] private Button settingsButton;
-    [SerializeField] private Button backButton;
+    [SerializeField] private Button backSettingsButton;
     [SerializeField] private Button exitButton;
+    [SerializeField] private Button backMenuButton;
 
     [Header("Panels")]
     [SerializeField] private GameObject mainPanel;
@@ -23,22 +24,23 @@ public class MainMenu : MonoBehaviour
     {
         playButton.onClick.AddListener(StartGame);
         settingsButton.onClick.AddListener(OpenSettings);
-        backButton.onClick.AddListener(OpenMainMenu);
+        backSettingsButton.onClick.AddListener(OpenMainMenu);
         exitButton.onClick.AddListener(ExitGame);
+        backMenuButton.onClick.AddListener(OpenMainMenu);
     }
 
     private void OnDisable()
     {
         playButton.onClick.RemoveListener(StartGame);
         settingsButton.onClick.RemoveListener(OpenSettings);
-        backButton.onClick.RemoveListener(OpenMainMenu);
+        backSettingsButton.onClick.RemoveListener(OpenMainMenu);
         exitButton.onClick.RemoveListener(ExitGame);
+        backMenuButton.onClick.AddListener(OpenMainMenu);
     }
 
     private void StartGame()
     {
-        Debug.Log("GameStart");
-        //SceneManager.LoadScene("Game");
+        CloseAllPanel();
     }
 
     private void OpenSettings()
@@ -58,9 +60,13 @@ public class MainMenu : MonoBehaviour
 
     private void ShowPanel(GameObject panel)
     {
+        CloseAllPanel();
+        panel.SetActive(true);
+    }
+
+    private void CloseAllPanel()
+    {
         mainPanel.SetActive(false);
         settingsPanel.SetActive(false);
-
-        panel.SetActive(true);
     }
 }

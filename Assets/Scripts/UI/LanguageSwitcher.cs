@@ -59,13 +59,6 @@ public class LanguageSwitcher : MonoBehaviour
         Locale selectedLocale = locales[index];
 
         LocalizationSettings.SelectedLocale = selectedLocale;
-
-        SaveData data = new SaveData
-        {
-            languageCode = selectedLocale.Identifier.Code
-        };
-
-        SaveManager.Save(data);
     }
 
     private void OnEnable()
