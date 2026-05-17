@@ -31,6 +31,22 @@ MonoBehaviour:
     m_Key: SampleScene/Canvas/MenuPanel/GameExitBtn/Text (TMP)
     m_Metadata:
       m_Items: []
+  - m_Id: 1476548895956992
+    m_Key: BackButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1505667542052864
+    m_Key: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1505753995046912
+    m_Key: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1505912220971008
+    m_Key: SFX
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

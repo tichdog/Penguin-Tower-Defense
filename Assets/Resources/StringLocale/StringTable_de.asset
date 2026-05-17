@@ -34,6 +34,22 @@ MonoBehaviour:
     m_Localized: Ausgang
     m_Metadata:
       m_Items: []
+  - m_Id: 1476548895956992
+    m_Localized: "Zur\xFCck"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1505667542052864
+    m_Localized: Sprache
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1505753995046912
+    m_Localized: Musik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1505912220971008
+    m_Localized: Effekte
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

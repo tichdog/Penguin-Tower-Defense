@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -22,21 +23,34 @@ public class MainMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        playButton.onClick.AddListener(StartGame);
-        settingsButton.onClick.AddListener(OpenSettings);
-        backSettingsButton.onClick.AddListener(OpenMainMenu);
-        exitButton.onClick.AddListener(ExitGame);
-        backMenuButton.onClick.AddListener(OpenMainMenu);
+        BindButton(playButton, StartGame);
+        BindButton(settingsButton, OpenSettings);
+        BindButton(backSettingsButton, OpenMainMenu);
+        BindButton(exitButton, ExitGame);
+        BindButton(backMenuButton, OpenMainMenu);
     }
 
     private void OnDisable()
     {
-        playButton.onClick.RemoveListener(StartGame);
-        settingsButton.onClick.RemoveListener(OpenSettings);
-        backSettingsButton.onClick.RemoveListener(OpenMainMenu);
-        exitButton.onClick.RemoveListener(ExitGame);
-        backMenuButton.onClick.AddListener(OpenMainMenu);
+        UnbindButton(playButton, StartGame);
+        UnbindButton(settingsButton, OpenSettings);
+        UnbindButton(backSettingsButton, OpenMainMenu);
+        UnbindButton(exitButton, ExitGame);
+        UnbindButton(backMenuButton, OpenMainMenu);
     }
+
+    private void BindButton(Button button, UnityAction action)
+    {
+        button.onClick.AddListener(action);
+        button.onClick.AddListener(AudioManager.Instance.PlayClick);
+    }
+
+    private void UnbindButton(Button button, UnityAction action)
+    {
+        button.onClick.RemoveListener(action);
+        button.onClick.RemoveListener(AudioManager.Instance.PlayClick);
+    }
+
 
     private void StartGame()
     {
@@ -45,7 +59,7 @@ public class MainMenu : MonoBehaviour
 
     private void OpenSettings()
     {
-        ShowPanel(settingsPanel);
+        settingsPanel.SetActive(true);
     }
 
     private void OpenMainMenu()
