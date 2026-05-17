@@ -50,6 +50,18 @@ MonoBehaviour:
     m_Localized: Effects
     m_Metadata:
       m_Items: []
+  - m_Id: 1546800635830272
+    m_Localized: Archer's Tower
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1547020958425088
+    m_Localized: Magician's Tower
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1565025570381824
+    m_Localized: 'Money: {0}'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

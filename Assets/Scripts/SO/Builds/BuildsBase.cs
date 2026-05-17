@@ -8,7 +8,7 @@ public class BuildsBase : ScriptableObject
     [SerializeField] private LocalizedString _name;
     [SerializeField] private LocalizedString _description;
     [SerializeField] private Sprite _icon;
-    [SerializeField] private GameObject _prefab;
+    [SerializeField] private Tower _prefab;
 
     [Header("Damage")]
     [SerializeField] private Vector2 _damageRange;
@@ -27,10 +27,13 @@ public class BuildsBase : ScriptableObject
     [SerializeField] private float _constructionTime = 1f;
     [SerializeField] private int _level = 1;
 
+    [Header("Upgrade")]
+    [SerializeField] private BuildsBase _nextLevel;
+
     public LocalizedString Name => _name;
     public LocalizedString Description => _description;
     public Sprite Icon => _icon;
-    public GameObject Prefab => _prefab;
+    public Tower Prefab => _prefab;
     public Vector2 DamageRange => _damageRange;
     public float AttackSpeed => _attackSpeed;
     public float AttackRadius => _attackRadius;
@@ -40,4 +43,6 @@ public class BuildsBase : ScriptableObject
     public int SalePrice => _salePrice;
     public float ConstructionTime => _constructionTime;
     public int Level => _level;
+    public BuildsBase NextLevel => _nextLevel;
+    public bool HasUpgrade => _nextLevel != null;
 }

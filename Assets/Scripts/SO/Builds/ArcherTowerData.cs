@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ArcherTower", menuName = "Scriptable Objects/ArcherTower")]
-public class ArcherTower : BuildsBase
+public class ArcherTowerData : BuildsBase
 {
     
 }

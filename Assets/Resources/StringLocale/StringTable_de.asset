@@ -50,6 +50,18 @@ MonoBehaviour:
     m_Localized: Effekte
     m_Metadata:
       m_Items: []
+  - m_Id: 1546800635830272
+    m_Localized: "Turm des Bogensch\xFCtzen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1547020958425088
+    m_Localized: Turm des Magiers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1565025570381824
+    m_Localized: "M\xFCnzen: {0}"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

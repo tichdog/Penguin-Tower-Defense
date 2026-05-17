@@ -47,6 +47,18 @@ MonoBehaviour:
     m_Key: SFX
     m_Metadata:
       m_Items: []
+  - m_Id: 1546800635830272
+    m_Key: ArchersTower
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1547020958425088
+    m_Key: MagiciTower
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1565025570381824
+    m_Key: Coin
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
