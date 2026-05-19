@@ -33,8 +33,8 @@ MonoBehaviour:
   _icon: {fileID: 1205075639419701121, guid: b71cf0e5c802e5c42b4b35040fc4b278, type: 3}
   _prefab: {fileID: 6765537250986853048, guid: cc6ecb6433ff617469860087f695a8e7, type: 3}
   _damageRange: {x: 0, y: 0}
-  _attackSpeed: 1
-  _attackRadius: 4
+  _attackSpeed: 2
+  _attackRadius: 5
   _damageType: 1
   _specialSkill: 0
   _purchasePrice: 50

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a234b214f05bac946832af0fb2d8d4bf, type: 3}
+  m_Name: Slime
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  _enemyName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _icon: {fileID: 368543389579951487, guid: 14f88b2766f379a42bf14edbc99639e0, type: 3}
+  _prefab: {fileID: 5807468789157166079, guid: 348cf937f8c9ecb4880ac88383b7599a, type: 3}
+  _maxHP: 10
+  _speed: 0.1
+  _damage: 1
+  _reward: 5
+  _ignoreDefenders: 0
+  _armor: 0
+  _isFlying: 0
+  _spawnScale: 1
+  _minReward: 1
+  _maxReward: 5
+  references:
+    version: 2
+    RefIds: []
