@@ -1,5 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
+п»їusing System.Collections.Generic;
+using SaveSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -7,69 +7,96 @@ using UnityEngine.Localization.Settings;
 
 public class LanguageSwitcher : MonoBehaviour
 {
+    private const string SaveKey = SaveKeys.SettingsLanguage;
+
     [SerializeField] private TMP_Dropdown dropdown;
 
-    // Храним языки из Localization
+    [System.Serializable]
+    private class LanguageSaveData
+    {
+        public string code;
+    }
+
     private List<Locale> locales = new();
-    // Для Dropdown опций (нужные нам названия и их ключи) 
+
     private Dictionary<string, string> languageNames = new()
     {
         { "en", "English" },
-        { "ru", "Русский" },
+        { "ru", "Р СѓСЃСЃРєРёР№" },
         { "de", "German" },
     };
 
     private async void Start()
     {
-        // Ждем загрузки localization
         await LocalizationSettings.InitializationOperation.Task;
-        // Забираем все языки из localization
         locales = LocalizationSettings.AvailableLocales.Locales;
+
+        ApplySavedLanguage();
 
         dropdown.ClearOptions();
 
         List<string> options = new();
-        // Для текущего языка
         int currentIndex = 0;
 
         for (int i = 0; i < locales.Count; i++)
         {
             Locale locale = locales[i];
-
             string code = locale.Identifier.Code;
-            // Ищем по ключу
+
             if (languageNames.TryGetValue(code, out string displayName))
                 options.Add(displayName);
             else
                 options.Add(locale.LocaleName);
-            // Сравниваем с текущим языком 
+
             if (LocalizationSettings.SelectedLocale == locale)
                 currentIndex = i;
         }
 
         dropdown.AddOptions(options);
-
-        dropdown.value = currentIndex;
+        dropdown.SetValueWithoutNotify(currentIndex);
         dropdown.RefreshShownValue();
-        
     }
 
     private void ChangeLanguage(int index)
     {
-        Locale selectedLocale = locales[index];
+        if (index < 0 || index >= locales.Count)
+            return;
 
+        Locale selectedLocale = locales[index];
         LocalizationSettings.SelectedLocale = selectedLocale;
+
+        string code = selectedLocale.Identifier.Code;
+        GameDataManager.Instance.SetData(SaveKey, new LanguageSaveData { code = code });
+        GameDataManager.Instance.Save();
     }
 
     private void OnEnable()
     {
-        // Подписка на событие изменения языка
-        dropdown.onValueChanged.AddListener(ChangeLanguage);
+        if (dropdown != null)
+            dropdown.onValueChanged.AddListener(ChangeLanguage);
     }
 
     private void OnDisable()
     {
-        // Отписка события изменения языка
-        dropdown.onValueChanged.RemoveListener(ChangeLanguage);
+        if (dropdown != null)
+            dropdown.onValueChanged.RemoveListener(ChangeLanguage);
+    }
+
+    private void ApplySavedLanguage()
+    {
+        if (GameDataManager.Instance == null)
+            return;
+
+        string savedCode = "";
+
+        if (GameDataManager.Instance.TryGetData(SaveKey, out LanguageSaveData savedLanguage))
+            savedCode = savedLanguage.code;
+
+        if (string.IsNullOrEmpty(savedCode))
+            return;
+
+        Locale savedLocale = locales.Find(locale => locale.Identifier.Code == savedCode);
+        if (savedLocale != null)
+            LocalizationSettings.SelectedLocale = savedLocale;
     }
 }
