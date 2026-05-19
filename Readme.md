@@ -11,7 +11,33 @@
 
 **Сохранения** 
 
-    Много скриптов описать
+    Что бы что то сохранить, создаем ключ в файле SaveKeys
+    public const string PlayerDiamonds = "player.diamonds";
+    Где то в скрипте экономики, создаем 
+    [Serializable]
+     public class DiamondsSaveData
+     {
+         public int amount;
+     }
+     И в сохранении\загрузке 
+     private void SaveDiamonds()
+    {
+        GameDataManager.Instance.SetData(SaveKeys.PlayerDiamonds, new DiamondsSaveData
+        {
+            amount = Diamonds
+        });
+
+        GameDataManager.Instance.Save();
+    }
+
+    private void LoadDiamonds()
+    {
+        if (GameDataManager.Instance.TryGetData(SaveKeys.PlayerDiamonds, out DiamondsSaveData data))
+            Diamonds = data.amount;
+        else
+            Diamonds = 0;
+    }
+     
 
 **Звуки**
 
