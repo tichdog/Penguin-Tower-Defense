@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cd86381d9d984f46ab2a799991b26d1, type: 3}
-  m_Name: ArcherTower
-  m_EditorClassIdentifier: Assembly-CSharp::ArcherTower
+  m_Script: {fileID: 11500000, guid: 5e58224e8507ef34a8236e4a105ed8fe, type: 3}
+  m_Name: MagicTower2
+  m_EditorClassIdentifier: Assembly-CSharp::MagicTowerData
   _name:
     m_TableReference:
-      m_TableCollectionName: GUID:cb577d7df3738c540aa6eada22565945
+      m_TableCollectionName: 
     m_TableEntryReference:
-      m_KeyId: 1546800635830272
+      m_KeyId: 0
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -30,18 +30,18 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  _icon: {fileID: 1205075639419701121, guid: b71cf0e5c802e5c42b4b35040fc4b278, type: 3}
+  _icon: {fileID: 3891269495536304776, guid: 704f1be639b55364096a1db6e4e0ee19, type: 3}
   _prefab: {fileID: 6765537250986853048, guid: cc6ecb6433ff617469860087f695a8e7, type: 3}
-  _damageRange: {x: 0, y: 0}
-  _attackSpeed: 2
-  _attackRadius: 5
-  _damageType: 1
+  _damageRange: {x: 6, y: 10}
+  _attackSpeed: 1
+  _attackRadius: 4
+  _damageType: 0
   _specialSkill: 0
-  _purchasePrice: 50
+  _purchasePrice: 100
   _salePrice: 25
   _constructionTime: 1
   _level: 1
-  _nextLevel: {fileID: 11400000, guid: 41886d7bcc41edf42aac76b650bf50e2, type: 2}
+  _nextLevel: {fileID: 0}
   references:
     version: 2
     RefIds: []

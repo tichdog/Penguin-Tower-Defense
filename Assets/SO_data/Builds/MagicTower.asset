@@ -32,7 +32,7 @@ MonoBehaviour:
     m_LocalVariables: []
   _icon: {fileID: 6063851354875158449, guid: d51abe738111bae458de9da3be940da1, type: 3}
   _prefab: {fileID: 1596914225380201939, guid: 2e52bef4bab85fb47a0314cadb20646e, type: 3}
-  _damageRange: {x: 0, y: 0}
+  _damageRange: {x: 5, y: 7}
   _attackSpeed: 1
   _attackRadius: 4
   _damageType: 2

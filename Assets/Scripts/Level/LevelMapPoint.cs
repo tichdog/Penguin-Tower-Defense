@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -10,10 +11,10 @@ public class LevelMapPoint : MonoBehaviour
 
     [Header("View")]
     [SerializeField] private SpriteRenderer pointRenderer;
-    [SerializeField] private GameObject lockOverlay;
-    [SerializeField] private TMP_Text starsText;
+    [SerializeField] private Sprite activeStarRenderer;
     [SerializeField] private Color unlockedColor = Color.white;
     [SerializeField] private Color lockedColor = new Color(1f, 1f, 1f, 0.45f);
+    [SerializeField] private GameObject[] starsObjects;
 
     private void Awake()
     {
@@ -46,10 +47,11 @@ public class LevelMapPoint : MonoBehaviour
         if (pointRenderer != null)
             pointRenderer.color = unlocked ? unlockedColor : lockedColor;
 
-        if (lockOverlay != null)
-            lockOverlay.SetActive(!unlocked);
+        for (int i = 1; i <= stars; i++)
+        {
+            starsObjects[i].GetComponent<SpriteRenderer>().sprite = activeStarRenderer;
+        }
 
-        if (starsText != null)
-            starsText.text = stars > 0 ? stars.ToString() : "";
+        Debug.Log($"Level {levelIndex} - Unlocked: {unlocked}, Stars: {stars}");
     }
 }

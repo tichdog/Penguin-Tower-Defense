@@ -9,10 +9,6 @@ public class LevelLoader : MonoBehaviour
     [SerializeField] private Transform levelParent;
     [SerializeField] private MapCameraController mapCameraController;
 
-    [Header("UI")]
-    [SerializeField] private GameObject levelSelectPanel;
-    [SerializeField] private GameObject gameplayPanel;
-
     public event Action<LevelData> LevelLoaded;
 
     private GameObject currentLevelInstance;
@@ -53,12 +49,6 @@ public class LevelLoader : MonoBehaviour
             mapCameraController.SetMapRenderer(levelRoot.BackgroundRenderer);
         else
             Debug.LogWarning("[LevelLoader] Level prefab needs LevelRoot with BackgroundRenderer for camera bounds.");
-
-        if (levelSelectPanel != null)
-            levelSelectPanel.SetActive(false);
-
-        if (gameplayPanel != null)
-            gameplayPanel.SetActive(true);
 
         LevelLoaded?.Invoke(levelData);
     }
