@@ -27,7 +27,15 @@ public abstract class Tower : MonoBehaviour
 
     private void Update()
     {
-        if (Data == null || EnemyManager.Instance == null)
+        if (Data == null)
+            return;
+
+        Tick();
+    }
+
+    protected virtual void Tick()
+    {
+        if (EnemyManager.Instance == null)
             return;
 
         FindTarget();
@@ -89,17 +97,17 @@ public abstract class Tower : MonoBehaviour
 
     public bool CanUpgrade()
     {
-        return Data.HasUpgrade;
+        return Data != null && Data.HasUpgrade;
     }
 
     public BuildsBase GetUpgradeData()
     {
-        return Data.NextLevel;
+        return Data != null ? Data.NextLevel : null;
     }
 
     public int GetSellPrice()
     {
-        return Data.SalePrice;
+        return Data != null ? Data.SalePrice : 0;
     }
 
     private void ShowAttackLine(Enemy target)

@@ -16,15 +16,24 @@ public class BuildManager : MonoBehaviour
 
     public void SelectNode(BuildNode node)
     {
+        if (node == null)
+            return;
+
         selectedNode = node;
 
         if (node.IsOccupied)
         {
+            if (BuildMenuUI.Instance != null)
+                BuildMenuUI.Instance.Close();
+
             if (TowerMenuUI.Instance != null)
                 TowerMenuUI.Instance.Open(node);
         }
         else
         {
+            if (TowerMenuUI.Instance != null)
+                TowerMenuUI.Instance.Close();
+
             if (BuildMenuUI.Instance != null)
                 BuildMenuUI.Instance.Open(node);
         }

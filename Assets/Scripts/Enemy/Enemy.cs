@@ -15,6 +15,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Color healthBarFillColor = new Color(0.18f, 0.95f, 0.28f, 1f);
     [SerializeField] private Color healthBarLowColor = new Color(1f, 0.24f, 0.18f, 1f);
 
+    [Header("Defender Combat")]
+    [SerializeField] private float defenderDetectionRadius = 0.8f;
+    [SerializeField] private float defenderAttackRange = 0.45f;
+    [SerializeField] private float defenderAttackSpeed = 1f;
+
+    private DefenderUnit targetDefender;
+    private float defenderAttackTimer;
+
     private bool _isInitialized;
     private Transform healthBarRoot;
     private Transform healthBarFill;
@@ -59,8 +67,60 @@ public class Enemy : MonoBehaviour
         if (!_isInitialized)
             return;
 
+        if (TryFightDefender())
+        {
+            UpdateHealthBarPosition();
+            return;
+        }
+
         Move();
         UpdateHealthBarPosition();
+    }
+
+    private bool TryFightDefender()
+    {
+        if (_data == null || _data.IgnoreDefenders)
+        {
+            targetDefender = null;
+            return false;
+        }
+
+        float detectionRadius = Mathf.Max(0.1f, defenderDetectionRadius);
+        float attackRange = Mathf.Max(0.05f, defenderAttackRange);
+        float attackSpeed = Mathf.Max(0.1f, defenderAttackSpeed);
+
+        if (targetDefender == null || !targetDefender.IsAlive)
+            targetDefender = DefenderUnit.FindClosest(transform.position, detectionRadius);
+
+        if (targetDefender == null)
+            return false;
+
+        float distance = Vector3.Distance(transform.position, targetDefender.transform.position);
+        if (distance > detectionRadius)
+        {
+            targetDefender = null;
+            return false;
+        }
+
+        if (distance > attackRange)
+        {
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                targetDefender.transform.position,
+                _data.Speed * Time.deltaTime
+            );
+
+            return true;
+        }
+
+        defenderAttackTimer += Time.deltaTime;
+        if (defenderAttackTimer >= attackSpeed)
+        {
+            defenderAttackTimer = 0f;
+            targetDefender.TakeDamage(_data.Damage);
+        }
+
+        return true;
     }
 
     private void Move()
