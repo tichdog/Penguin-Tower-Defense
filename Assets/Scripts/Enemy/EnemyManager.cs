@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -8,6 +9,9 @@ public class EnemyManager : MonoBehaviour
     private readonly List<Enemy> _enemies = new();
 
     public List<Enemy> Enemies => _enemies;
+    public int AliveCount => _enemies.Count;
+
+    public event Action<int> OnEnemyCountChanged;
 
     private void Awake()
     {
@@ -19,6 +23,7 @@ public class EnemyManager : MonoBehaviour
         if (!_enemies.Contains(enemy))
         {
             _enemies.Add(enemy);
+            NotifyEnemyCountChanged();
         }
     }
 
@@ -27,6 +32,26 @@ public class EnemyManager : MonoBehaviour
         if (_enemies.Contains(enemy))
         {
             _enemies.Remove(enemy);
+            NotifyEnemyCountChanged();
         }
+    }
+
+    public void ClearAllEnemies()
+    {
+        for (int i = _enemies.Count - 1; i >= 0; i--)
+        {
+            Enemy enemy = _enemies[i];
+
+            if (enemy != null)
+                Destroy(enemy.gameObject);
+        }
+
+        _enemies.Clear();
+        NotifyEnemyCountChanged();
+    }
+
+    private void NotifyEnemyCountChanged()
+    {
+        OnEnemyCountChanged?.Invoke(_enemies.Count);
     }
 }

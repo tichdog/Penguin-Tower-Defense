@@ -41,14 +41,24 @@ public class MainMenu : MonoBehaviour
 
     private void BindButton(Button button, UnityAction action)
     {
+        if (button == null)
+            return;
+
         button.onClick.AddListener(action);
-        button.onClick.AddListener(AudioManager.Instance.PlayClick);
+
+        if (AudioManager.Instance != null)
+            button.onClick.AddListener(AudioManager.Instance.PlayClick);
     }
 
     private void UnbindButton(Button button, UnityAction action)
     {
+        if (button == null)
+            return;
+
         button.onClick.RemoveListener(action);
-        button.onClick.RemoveListener(AudioManager.Instance.PlayClick);
+
+        if (AudioManager.Instance != null)
+            button.onClick.RemoveListener(AudioManager.Instance.PlayClick);
     }
 
 
@@ -59,11 +69,18 @@ public class MainMenu : MonoBehaviour
 
     private void OpenSettings()
     {
-        settingsPanel.SetActive(true);
+        ShowPanel(settingsPanel);
     }
 
     private void OpenMainMenu()
     {
+        if (LevelLoader.Instance != null && LevelLoader.Instance.CurrentLevel != null)
+        {
+            LevelLoader.Instance.ReturnToMap();
+            CloseAllPanel();
+            return;
+        }
+
         ShowPanel(mainPanel);
     }
 
@@ -75,12 +92,17 @@ public class MainMenu : MonoBehaviour
     private void ShowPanel(GameObject panel)
     {
         CloseAllPanel();
-        panel.SetActive(true);
+
+        if (panel != null)
+            panel.SetActive(true);
     }
 
     private void CloseAllPanel()
     {
-        mainPanel.SetActive(false);
-        settingsPanel.SetActive(false);
+        if (mainPanel != null)
+            mainPanel.SetActive(false);
+
+        if (settingsPanel != null)
+            settingsPanel.SetActive(false);
     }
 }

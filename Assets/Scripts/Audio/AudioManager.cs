@@ -75,6 +75,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(AudioClip clip, bool loop = true)
     {
+        if (musicSource == null || clip == null)
+            return;
+
         if (musicSource.clip == clip)
             return;
 
@@ -102,6 +105,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioClip clip, float volume = 1f)
     {
+        if (SFXSource == null || clip == null)
+            return;
+
         SFXSource.PlayOneShot(clip, volume);
     }
     #endregion
@@ -141,11 +147,17 @@ public class AudioManager : MonoBehaviour
 
     private void ApplyMusicVolume()
     {
+        if (mixer == null)
+            return;
+
         mixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume) * 20f);
     }
 
     private void ApplySFXVolume()
     {
+        if (mixer == null)
+            return;
+
         mixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20f);
     }
 
@@ -161,6 +173,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlayClick()
     {
+        if (UISource == null || clickClip == null)
+            return;
+
         UISource.PlayOneShot(clickClip);
     }
 

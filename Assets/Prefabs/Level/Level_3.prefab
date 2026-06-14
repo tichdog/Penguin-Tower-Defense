@@ -1031,8 +1031,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0529b1c08740b514cb1f76a8e0678bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  _waveConfig: {fileID: 11400000, guid: 86036eaad577b15498ec3cb0929d09db, type: 2}
-  _path: {fileID: 1886385726883447968}
+  _routes:
+  - enemyPath: {fileID: 1886385726883447968}
+    waveConfig: {fileID: 11400000, guid: 86036eaad577b15498ec3cb0929d09db, type: 2}
 --- !u!1 &6159677754725412046
 GameObject:
   m_ObjectHideFlags: 0

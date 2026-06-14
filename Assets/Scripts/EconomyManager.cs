@@ -31,8 +31,17 @@ public class EconomyManager : MonoBehaviour
         NotifyCoinsChanged();
     }
 
+    public void ResetCoins()
+    {
+        Coins = startCoins;
+        NotifyCoinsChanged();
+    }
+
     public void AddCoins(int amount)
     {
+        if (amount <= 0)
+            return;
+
         Coins += amount;
 
         NotifyCoinsChanged();

@@ -34,7 +34,7 @@ MonoBehaviour:
   _prefab: {fileID: 139683431578635577, guid: deb23ce0b1ca42e45b4a3c4f43e9eaa0, type: 3}
   _maxHP: 10
   _speed: 1
-  _damage: 1
+  _damage: 100
   _reward: 5
   _ignoreDefenders: 0
   _armor: 0

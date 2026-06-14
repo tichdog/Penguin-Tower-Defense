@@ -8,11 +8,16 @@ public class BuildButton : MonoBehaviour
 
     private void Awake()
     {
-        button.onClick.AddListener(Build);
+        if (button == null)
+            button = GetComponent<Button>();
+
+        if (button != null)
+            button.onClick.AddListener(Build);
     }
 
     private void Build()
     {
-        BuildMenuUI.Instance.Build(buildData);
+        if (BuildMenuUI.Instance != null)
+            BuildMenuUI.Instance.Build(buildData);
     }
 }

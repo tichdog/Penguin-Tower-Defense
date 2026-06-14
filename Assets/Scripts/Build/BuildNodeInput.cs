@@ -14,7 +14,10 @@ public class BuildNodeInput : MonoBehaviour,
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        EconomyManager.Instance.AddCoins(25);
-        BuildManager.Instance.SelectNode(node);
+        if (eventData.button != PointerEventData.InputButton.Left)
+            return;
+
+        if (BuildManager.Instance != null)
+            BuildManager.Instance.SelectNode(node);
     }
 }

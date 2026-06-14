@@ -10,16 +10,20 @@ public class CoinsUI : MonoBehaviour
 
     private void OnEnable()
     {
-        coinsLocalizedString.StringChanged += UpdateText;
+        if (coinsLocalizedString != null)
+            coinsLocalizedString.StringChanged += UpdateText;
 
-        EconomyManager.Instance.OnCoinsChanged += OnCoinsChanged;
-
-        OnCoinsChanged(EconomyManager.Instance.Coins);
+        if (EconomyManager.Instance != null)
+        {
+            EconomyManager.Instance.OnCoinsChanged += OnCoinsChanged;
+            OnCoinsChanged(EconomyManager.Instance.Coins);
+        }
     }
 
     private void OnDisable()
     {
-        coinsLocalizedString.StringChanged -= UpdateText;
+        if (coinsLocalizedString != null)
+            coinsLocalizedString.StringChanged -= UpdateText;
 
         if (EconomyManager.Instance != null)
             EconomyManager.Instance.OnCoinsChanged -= OnCoinsChanged;
@@ -27,6 +31,12 @@ public class CoinsUI : MonoBehaviour
 
     private void OnCoinsChanged(int coins)
     {
+        if (coinsLocalizedString == null)
+        {
+            UpdateText(coins.ToString());
+            return;
+        }
+
         coinsLocalizedString.Arguments = new object[]
         {
             coins
@@ -37,6 +47,7 @@ public class CoinsUI : MonoBehaviour
 
     private void UpdateText(string value)
     {
-        coinsText.text = value;
+        if (coinsText != null)
+            coinsText.text = value;
     }
 }

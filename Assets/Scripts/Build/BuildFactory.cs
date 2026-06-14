@@ -6,6 +6,9 @@ public static class BuildFactory
         BuildsBase data,
         BuildNode node)
     {
+        if (data == null || data.Prefab == null || node == null)
+            return null;
+
         Tower tower = Object.Instantiate(
             data.Prefab,
             node.BuildPosition,

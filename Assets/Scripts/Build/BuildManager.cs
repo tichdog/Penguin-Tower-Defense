@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildManager : MonoBehaviour
 {
     public static BuildManager Instance;
+
+    private readonly List<Tower> towers = new();
 
     private BuildNode selectedNode;
 
@@ -16,9 +19,15 @@ public class BuildManager : MonoBehaviour
         selectedNode = node;
 
         if (node.IsOccupied)
-            TowerMenuUI.Instance.Open(node);
+        {
+            if (TowerMenuUI.Instance != null)
+                TowerMenuUI.Instance.Open(node);
+        }
         else
-            BuildMenuUI.Instance.Open(node);
+        {
+            if (BuildMenuUI.Instance != null)
+                BuildMenuUI.Instance.Open(node);
+        }
     }
 
     public bool TryBuild(BuildsBase data)
@@ -29,6 +38,9 @@ public class BuildManager : MonoBehaviour
         if (selectedNode.IsOccupied)
             return false;
 
+        if (data == null || data.Prefab == null || EconomyManager.Instance == null)
+            return false;
+
         if (!EconomyManager.Instance.TrySpend(data.PurchasePrice))
             return false;
 
@@ -37,7 +49,11 @@ public class BuildManager : MonoBehaviour
             selectedNode
         );
 
+        if (tower == null)
+            return false;
+
         selectedNode.SetTower(tower);
+        towers.Add(tower);
 
         return true;
     }
@@ -52,10 +68,12 @@ public class BuildManager : MonoBehaviour
 
         Tower tower = selectedNode.CurrentTower;
 
-        EconomyManager.Instance.AddCoins(
-            tower.GetSellPrice()
-        );
+        if (EconomyManager.Instance != null)
+            EconomyManager.Instance.AddCoins(
+                tower.GetSellPrice()
+            );
 
+        towers.Remove(tower);
         Destroy(tower.gameObject);
 
         selectedNode.Clear();
@@ -79,10 +97,17 @@ public class BuildManager : MonoBehaviour
         BuildsBase upgradeData =
             currentTower.GetUpgradeData();
 
+        if (upgradeData == null || upgradeData.Prefab == null)
+            return false;
+
+        if (EconomyManager.Instance == null)
+            return false;
+
         if (!EconomyManager.Instance.TrySpend(
             upgradeData.PurchasePrice))
             return false;
 
+        towers.Remove(currentTower);
         Destroy(currentTower.gameObject);
 
         Tower newTower = BuildFactory.Create(
@@ -90,8 +115,33 @@ public class BuildManager : MonoBehaviour
             selectedNode
         );
 
+        if (newTower == null)
+            return false;
+
         selectedNode.SetTower(newTower);
+        towers.Add(newTower);
 
         return true;
+    }
+
+    public void ClearAllTowers()
+    {
+        selectedNode = null;
+
+        for (int i = towers.Count - 1; i >= 0; i--)
+        {
+            Tower tower = towers[i];
+
+            if (tower != null)
+                Destroy(tower.gameObject);
+        }
+
+        towers.Clear();
+
+        if (BuildMenuUI.Instance != null)
+            BuildMenuUI.Instance.Close();
+
+        if (TowerMenuUI.Instance != null)
+            TowerMenuUI.Instance.Close();
     }
 }

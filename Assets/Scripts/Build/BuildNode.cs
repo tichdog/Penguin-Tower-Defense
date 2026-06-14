@@ -8,7 +8,7 @@ public class BuildNode : MonoBehaviour
 
     public bool IsOccupied => CurrentTower != null;
 
-    public Vector3 BuildPosition => buildPoint.position;
+    public Vector3 BuildPosition => buildPoint != null ? buildPoint.position : transform.position;
 
     public void SetTower(Tower tower)
     {

@@ -9,12 +9,14 @@ public class BuildMenuUI : MonoBehaviour
     [SerializeField] private MenuBlocker blocker;
 
     private BuildNode currentNode;
+    private Camera mainCamera;
 
     private void Awake()
     {
         Instance = this;
 
-        blocker.Initialize(Close);
+        if (blocker != null)
+            blocker.Initialize(Close);
 
         Close();
     }
@@ -23,17 +25,25 @@ public class BuildMenuUI : MonoBehaviour
     {
         currentNode = node;
 
-        root.SetActive(true);
+        mainCamera = Camera.main;
 
-        panel.position =
-            Camera.main.WorldToScreenPoint(
-                node.transform.position);
+        if (root == null || panel == null || mainCamera == null)
+            return;
+
+        root.SetActive(true);
+        UpdatePanelPosition();
+    }
+
+    private void LateUpdate()
+    {
+        if (root != null && root.activeSelf)
+            UpdatePanelPosition();
     }
 
     public void Build(BuildsBase build)
     {
         bool success =
-            BuildManager.Instance.TryBuild(build);
+            BuildManager.Instance != null && BuildManager.Instance.TryBuild(build);
 
         if (success)
             Close();
@@ -43,6 +53,21 @@ public class BuildMenuUI : MonoBehaviour
     {
         currentNode = null;
 
-        root.SetActive(false);
+        if (root != null)
+            root.SetActive(false);
+    }
+
+    private void UpdatePanelPosition()
+    {
+        if (currentNode == null || panel == null)
+            return;
+
+        if (mainCamera == null)
+            mainCamera = Camera.main;
+
+        if (mainCamera == null)
+            return;
+
+        panel.position = mainCamera.WorldToScreenPoint(currentNode.transform.position);
     }
 }

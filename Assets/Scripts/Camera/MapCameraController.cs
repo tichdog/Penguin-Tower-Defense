@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
@@ -24,6 +25,7 @@ public class MapCameraController : MonoBehaviour
     private Vector2 lastPanPosition;
     private bool wasZoomingLastFrame;
     private float lastPinchDistance;
+    private bool wasPanningLastFrame;
 
     private void Start()
     {
@@ -38,6 +40,9 @@ public class MapCameraController : MonoBehaviour
 
     public void SetMapRenderer(SpriteRenderer renderer)
     {
+        if (cam == null)
+            cam = GetComponent<Camera>();
+
         if (renderer == null)
         {
             Debug.LogWarning("[MapCameraController] Map renderer is empty.");
@@ -111,6 +116,9 @@ public class MapCameraController : MonoBehaviour
                 }
 
                 Vector2 delta = cam.ScreenToViewportPoint(lastPanPosition - currentPos);
+                if (delta.sqrMagnitude > 0.000001f)
+                    CloseBuildMenus();
+
                 Move(delta);
                 lastPanPosition = currentPos;
             }
@@ -165,8 +173,22 @@ public class MapCameraController : MonoBehaviour
         if (Mouse.current.leftButton.isPressed)
         {
             Vector2 delta = Mouse.current.delta.ReadValue();
+            if (delta.sqrMagnitude > 0.01f)
+            {
+                if (!wasPanningLastFrame)
+                    CloseBuildMenus();
+
+                wasPanningLastFrame = true;
+            }
+
             delta *= 0.001f;
-            Move(delta);
+
+            if (!IsPointerOverUi())
+                Move(delta);
+        }
+        else
+        {
+            wasPanningLastFrame = false;
         }
 
         float scroll = Mouse.current.scroll.ReadValue().y;
@@ -231,5 +253,19 @@ public class MapCameraController : MonoBehaviour
             return;
 
         bounds = mapRenderer.bounds;
+    }
+
+    private void CloseBuildMenus()
+    {
+        if (BuildMenuUI.Instance != null)
+            BuildMenuUI.Instance.Close();
+
+        if (TowerMenuUI.Instance != null)
+            TowerMenuUI.Instance.Close();
+    }
+
+    private bool IsPointerOverUi()
+    {
+        return EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
     }
 }

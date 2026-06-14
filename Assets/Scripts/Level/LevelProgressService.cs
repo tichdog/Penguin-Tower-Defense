@@ -1,8 +1,11 @@
+using System;
 using SaveSystem;
 using UnityEngine;
 
 public static class LevelProgressService
 {
+    public static event Action<string, int> StarsChanged;
+
     public static LevelProgressData Load()
     {
         LevelProgressData progress = GameDataManager.Instance != null
@@ -43,6 +46,8 @@ public static class LevelProgressService
 
         if (saveImmediately)
             GameDataManager.Instance.Save();
+
+        StarsChanged?.Invoke(levelId, entry.stars);
     }
 
     public static bool IsUnlocked(LevelData[] levels, int levelIndex)

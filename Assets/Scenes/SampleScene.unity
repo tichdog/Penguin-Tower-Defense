@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 50858148}
   - component: {fileID: 50858147}
+  - component: {fileID: 50858149}
   m_Layer: 0
   m_Name: EconomyManager
   m_TagString: Untagged
@@ -164,6 +165,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &50858149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50858146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9f2b0f3c6d84f428a4f0ce59f4db8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthManager
+  startHealth: 100
 --- !u!1 &51377530
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +259,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelLoader
   levelParent: {fileID: 1425033386}
   mapCameraController: {fileID: 519420033}
+  mapRenderer: {fileID: 792091370}
+  mapOnlyObjects:
+  - {fileID: 305436378}
+  - {fileID: 711761785}
+  levelOnlyObjects:
+  - {fileID: 1230541426}
 --- !u!4 &62882988
 Transform:
   m_ObjectHideFlags: 0
@@ -485,7 +505,7 @@ RectTransform:
   m_Father: {fileID: 1200053554}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1360,6 +1380,7 @@ GameObject:
   - component: {fileID: 305436379}
   - component: {fileID: 305436381}
   - component: {fileID: 305436380}
+  - component: {fileID: 305436382}
   m_Layer: 5
   m_Name: Stars
   m_TagString: Untagged
@@ -1426,6 +1447,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 305436378}
   m_CullTransparentMesh: 1
+--- !u!114 &305436382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305436378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7c1d45e5b1a8ce4bb7a2f1b8a01cd33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelStarsSummaryUI
+  starsText: {fileID: 449670007}
+  levelSelectController: {fileID: 1425033387}
+  countOnlyUnlockedLevels: 1
 --- !u!1 &356012531
 GameObject:
   m_ObjectHideFlags: 0
@@ -2604,7 +2640,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &711761786
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2817,8 +2853,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1852333836}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5991,9 +6027,9 @@ RectTransform:
   m_Father: {fileID: 415153778}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1268349626
 MonoBehaviour:
@@ -6189,7 +6225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1327034571
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6404,6 +6440,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9dbce88378b62fd45acaf6f271d0f4c9, type: 2}
   - {fileID: 11400000, guid: 6632774936c81e14cb6fb5e5ba25c7da, type: 2}
   - {fileID: 11400000, guid: fa84c3dd95adbd64ebadbd50b0fefd41, type: 2}
+  mapPoints: []
+  starsSummaryUI: {fileID: 0}
 --- !u!1 &1430132175
 GameObject:
   m_ObjectHideFlags: 0
@@ -6728,7 +6766,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1483673053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6847,7 +6885,7 @@ RectTransform:
   m_Father: {fileID: 1276058149}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7991,13 +8029,14 @@ GameObject:
   - component: {fileID: 1719777337}
   - component: {fileID: 1719777339}
   - component: {fileID: 1719777338}
+  - component: {fileID: 1719777340}
   m_Layer: 5
   m_Name: HPText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1719777337
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8117,6 +8156,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1719777336}
   m_CullTransparentMesh: 1
+--- !u!114 &1719777340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719777336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a0c8e97957f4c8b9e6c8bb14c93a4e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthUI
+  healthText: {fileID: 1719777338}
+  healthRoot: {fileID: 0}
+  defeatPanel: {fileID: 0}
+  victoryPanel: {fileID: 0}
+  backButton: {fileID: 0}
+  victoryBackButton: {fileID: 0}
+  victoryStarsText: {fileID: 0}
+  format: "\u0417\u0434\u043E\u0440\u043E\u0432\u044C\u0435: {0}/{1}"
 --- !u!1 &1734263665
 GameObject:
   m_ObjectHideFlags: 0
@@ -8595,7 +8654,7 @@ RectTransform:
   m_Father: {fileID: 81102713}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9600,7 +9659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2009629237
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9669,8 +9728,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 829888937}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9730,7 +9789,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2074710242
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9794,19 +9853,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2074710244}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TestStar, Assembly-CSharp
-        m_MethodName: CompleteCurrentLevel
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2074710244
 MonoBehaviour:
   m_ObjectHideFlags: 0

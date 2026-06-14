@@ -9,6 +9,13 @@ public abstract class Tower : MonoBehaviour
     private Enemy _target;
 
     private float _attackTimer;
+    private static Material attackLineMaterial;
+
+    [Header("Attack Visual")]
+    [SerializeField] private Color attackLineColor = new Color(1f, 0.87f, 0.18f, 1f);
+    [SerializeField] private float attackLineWidth = 0.08f;
+    [SerializeField] private float attackLineDuration = 0.12f;
+    [SerializeField] private Vector3 attackLineOffset = new Vector3(0f, 0.2f, 0f);
 
     public virtual void Initialize(
         BuildsBase data,
@@ -20,6 +27,9 @@ public abstract class Tower : MonoBehaviour
 
     private void Update()
     {
+        if (Data == null || EnemyManager.Instance == null)
+            return;
+
         FindTarget();
 
         Attack();
@@ -72,12 +82,7 @@ public abstract class Tower : MonoBehaviour
             Data.DamageRange.y
         );
 
-        Debug.DrawLine(
-            transform.position,
-            _target.transform.position,
-            Color.yellow,
-            0.1f
-        );
+        ShowAttackLine(_target);
 
         _target.TakeDamage(damage);
     }
@@ -95,6 +100,52 @@ public abstract class Tower : MonoBehaviour
     public int GetSellPrice()
     {
         return Data.SalePrice;
+    }
+
+    private void ShowAttackLine(Enemy target)
+    {
+        if (target == null)
+            return;
+
+        GameObject lineObject = new GameObject($"{name}_AttackLine");
+        LineRenderer line = lineObject.AddComponent<LineRenderer>();
+
+        line.positionCount = 2;
+        line.useWorldSpace = true;
+        line.startWidth = attackLineWidth;
+        line.endWidth = attackLineWidth * 0.45f;
+        line.startColor = attackLineColor;
+        line.endColor = new Color(
+            attackLineColor.r,
+            attackLineColor.g,
+            attackLineColor.b,
+            0f
+        );
+        line.material = GetAttackLineMaterial();
+        line.sortingOrder = 40;
+        line.numCapVertices = 4;
+
+        Vector3 start = transform.position + attackLineOffset;
+        Vector3 end = target.transform.position;
+        start.z = 0f;
+        end.z = 0f;
+
+        line.SetPosition(0, start);
+        line.SetPosition(1, end);
+
+        Destroy(lineObject, attackLineDuration);
+    }
+
+    private static Material GetAttackLineMaterial()
+    {
+        if (attackLineMaterial != null)
+            return attackLineMaterial;
+
+        Shader shader = Shader.Find("Sprites/Default");
+        attackLineMaterial = new Material(shader);
+        attackLineMaterial.name = "Runtime Attack Line Material";
+
+        return attackLineMaterial;
     }
 
 #if UNITY_EDITOR

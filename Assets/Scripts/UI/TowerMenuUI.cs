@@ -8,40 +8,72 @@ public class TowerMenuUI : MonoBehaviour
     [SerializeField] private RectTransform panel;
     [SerializeField] private MenuBlocker blocker;
 
+    private BuildNode currentNode;
+    private Camera mainCamera;
+
     private void Awake()
     {
         Instance = this;
 
-        blocker.Initialize(Close);
+        if (blocker != null)
+            blocker.Initialize(Close);
 
         Close();
     }
 
     public void Open(BuildNode node)
     {
-        root.SetActive(true);
+        currentNode = node;
+        mainCamera = Camera.main;
 
-        panel.position =
-            Camera.main.WorldToScreenPoint(
-                node.transform.position);
+        if (root == null || panel == null || mainCamera == null)
+            return;
+
+        root.SetActive(true);
+        UpdatePanelPosition();
+    }
+
+    private void LateUpdate()
+    {
+        if (root != null && root.activeSelf)
+            UpdatePanelPosition();
     }
 
     public void Upgrade()
     {
-        BuildManager.Instance.TryUpgrade();
+        if (BuildManager.Instance != null)
+            BuildManager.Instance.TryUpgrade();
 
         Close();
     }
 
     public void Sell()
     {
-        BuildManager.Instance.TrySell();
+        if (BuildManager.Instance != null)
+            BuildManager.Instance.TrySell();
 
         Close();
     }
 
     public void Close()
     {
-        root.SetActive(false);
+        currentNode = null;
+
+        if (root != null)
+            root.SetActive(false);
+    }
+
+    private void UpdatePanelPosition()
+    {
+        if (currentNode == null || panel == null)
+            return;
+
+        if (mainCamera == null)
+            mainCamera = Camera.main;
+
+        if (mainCamera == null)
+            return;
+
+        panel.position = mainCamera.WorldToScreenPoint(currentNode.transform.position);
     }
 }
